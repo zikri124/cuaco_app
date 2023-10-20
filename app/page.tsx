@@ -70,7 +70,7 @@ export default function Home() {
     <main className="flex flex-wrap min-h-screen">
       <div className='w-screen md:w-3/5 xl:w-2/3 h-fit px-4 order-last md:order-first mt-0 md:mt-16 pb-4'>
         <div className='grid grid-cols-1 lg:grid-cols-6 gap-4'>
-          <div className='card md:col-span-3 bg-orange-300 flex flex-col justify-between'>
+          <div className='card md:col-span-3 bg-yellow-300 flex flex-col justify-between'>
             <div className='flex flex-row items-center'>
               <div className='bg-white rounded-full w-12 h-12 me-4'>
 
@@ -80,22 +80,50 @@ export default function Home() {
                 <p className='text-sm'>Current Weather</p>
               </div>
             </div>
-            <div className='mt-8'>
+            <div className='mt-6'>
               <h2 className='text-5xl font-semibold'>22&deg;C</h2>
               <p>Partly Cloudy</p>
             </div>
-            <div className='mt-8 text-center grid grid-cols-3 gap-4 md:gap-2'>
-              <div className='rounded-2xl bg-blue-950 text-white px-2 py-4'>
-                <p className='text-sm'>Presure</p>
-                <h4 className='font-semibold'>800mb</h4>
+
+            <div className='flex justify-between mt-4'>
+              <h3 className='text-lg font-semibold'>Hourly Weather</h3>
+            </div>
+
+            <div className='grid grid-cols-5 gap-2 text-center text-sm justify-items-center mt-2'>
+              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+                <p>05 AM</p>
+                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
+
+                </div>
+                <p className='font-bold'>24&deg;C</p>
               </div>
-              <div className='rounded-2xl bg-green-300 px-2 py-4'>
-                <p className='text-sm'>Visibility</p>
-                <h4 className='font-semibold'>4.3 km</h4>
+              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+                <p>06 AM</p>
+                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
+
+                </div>
+                <p className='font-bold'>24&deg;C</p>
               </div>
-              <div className='rounded-2xl bg-white px-2 py-4'>
-                <p className='text-sm'>Humadity</p>
-                <h4 className='font-semibold'>87%</h4>
+              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+                <p>07 AM</p>
+                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
+
+                </div>
+                <p className='font-bold'>24&deg;C</p>
+              </div>
+              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+                <p>08 AM</p>
+                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
+
+                </div>
+                <p className='font-bold'>24&deg;C</p>
+              </div>
+              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+                <p>09 AM</p>
+                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
+
+                </div>
+                <p className='font-bold'>24&deg;C</p>
               </div>
             </div>
           </div>
@@ -132,36 +160,65 @@ export default function Home() {
             </div>
           </div>
 
-          <div className='md:col-span-4'>
+          <div className='card md:col-span-2 bg-orange-300 justify-between'>
+            <div className='flex flex-row items-center'>
+              <div className='bg-white rounded-full w-12 h-12 me-4'>
+
+              </div>
+              <div>
+                <h3 className='text-xl font-bold'>Additional Conditions</h3>
+              </div>
+            </div>
+
+            <div className='mt-4 text-center grid grid-cols-1 gap-2 md:gap-2'>
+              <div className='rounded-2xl bg-blue-950 text-white px-2 py-2'>
+                <p className='text-sm'>Presure</p>
+                <h4 className='font-semibold'>800mb</h4>
+              </div>
+              <div className='rounded-2xl bg-white px-2 py-2'>
+                <p className='text-sm'>Humadity</p>
+                <h4 className='font-semibold'>87%</h4>
+              </div>
+              <div className='rounded-2xl bg-green-300 px-2 py-2'>
+                <p className='text-sm'>Visibility</p>
+                <h4 className='font-semibold'>4.3 km</h4>
+              </div>
+            </div>
+
+          </div>
+
+          <div className='md:col-span-2 card bg-slate-200 flex flex-col'>
             <div className='flex flex-row'>
               <h3 className='text-2xl font-semibold'>How&apos;s the temperature today?</h3>
             </div>
-            <div className='chart-container mt-8 w-full h-36 px-16'>
-              <Line data={chartData} options={chartOptions} />
-            </div>
-            <div className='grid grid-cols-4 justify-items-center text-center border-2 rounded-2xl mt-4 text-sm'>
-              <div>
-                <div className='py-2 px-2 w-fit'>
-                  <p className='font-semibold'>Morning</p>
-                  <h6 className=''>{chartData.datasets[0].data[0]}&deg;C</h6>
-                </div>
+            <div>
+              <div className='chart-container mt-8 w-full h-24 px-10'>
+                <Line data={chartData} options={chartOptions} />
               </div>
-              <div>
-                <div className='py-2 px-2 w-fit'>
-                  <p className='font-semibold'>Afternoon</p>
-                  <h6 className=''>{chartData.datasets[0].data[1]}&deg;C</h6>
+              <div className='grid grid-cols-4 justify-items-center text-center border-2 rounded-2xl text-sm'>
+                <div>
+                  <div className='py-2 px-2 w-fit'>
+                    <p className='font-semibold'>Morning</p>
+                    <h6 className=''>{chartData.datasets[0].data[0]}&deg;C</h6>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className='py-2 px-2 w-fit '>
-                  <p className='font-semibold'>Evening</p>
-                  <h6 className=''>{chartData.datasets[0].data[2]}&deg;C</h6>
+                <div>
+                  <div className='py-2 px-2 w-fit'>
+                    <p className='font-semibold'>Afternoon</p>
+                    <h6 className=''>{chartData.datasets[0].data[1]}&deg;C</h6>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className='py-2 px-2 w-fit'>
-                  <p className='font-semibold'>Night</p>
-                  <h6 className=''>{chartData.datasets[0].data[3]}&deg;C</h6>
+                <div>
+                  <div className='py-2 px-2 w-fit '>
+                    <p className='font-semibold'>Evening</p>
+                    <h6 className=''>{chartData.datasets[0].data[2]}&deg;C</h6>
+                  </div>
+                </div>
+                <div>
+                  <div className='py-2 px-2 w-fit'>
+                    <p className='font-semibold'>Night</p>
+                    <h6 className=''>{chartData.datasets[0].data[3]}&deg;C</h6>
+                  </div>
                 </div>
               </div>
             </div>
@@ -206,11 +263,11 @@ export default function Home() {
           <div className='flex justify-between mt-2 text-sm text-center'>
             <div>
               <p className='font-semibold'>Sunrise</p>
-              <p>06.00 AM</p>
+              <p>06.00</p>
             </div>
             <div>
               <p className='font-semibold'>Sunset</p>
-              <p>06.15 PM</p>
+              <p>18.15</p>
             </div>
           </div>
         </div>
