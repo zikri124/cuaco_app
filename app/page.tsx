@@ -11,7 +11,10 @@ import {
   LineElement,
   Filler,
 } from "chart.js";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
+import WeatherData from './interfaces/WeatherData';
+import { useEffect, useState } from 'react';
+import AirPollution from './interfaces/AirPollution';
 
 export default function Home() {
   ChartJS.register(
@@ -33,9 +36,9 @@ export default function Home() {
     datasets: [
       {
         data: [20, 34, 28, 22],
-        backgroundColor: "#fed7aa",
+        backgroundColor: "#86efac",
         tension: 0.5,
-        borderColor: "#fb923c",
+        borderColor: "#166534",
         fill: true
       }
     ]
@@ -66,72 +69,83 @@ export default function Home() {
     }
   }
 
+  const [weatherDatas, setWeatherDatas] = useState<WeatherData>()
+  const [airPollutionData, setAirPollutionData] = useState<AirPollution>()
+  const [isLoading, setIsLoading] = useState<Boolean>(true)
+
+  useEffect(() => {
+    const lat: number = -7.9447219
+    const lon: number = 112.6050011
+    const appId: string = '2f10890dd132b12d5be2a50f2743c03e'
+
+    fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + appId + '&units=metric')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        const datas: WeatherData = data
+        fetch('http://api.openweathermap.org/data/2.5/air_pollution/history?lat=' + lat + '&lon=' + lon + '&start=' + datas?.dt + '&end=' + (Number(datas?.dt!) + 3600) + '&appid=' + appId)
+          .then(res2 => {
+            return res2.json()
+          })
+          .then(data2 => {
+            const datas2: AirPollution = data2
+            console.log(datas)
+            console.log(datas2)
+            setAirPollutionData(datas2)
+            setWeatherDatas(datas)
+            setIsLoading(false)
+          })
+      })
+  }, [])
+
   return (
     <main className="flex flex-wrap min-h-screen">
-      <div className='w-screen md:w-3/5 xl:w-2/3 h-fit px-4 order-last md:order-first mt-0 md:mt-16 pb-4'>
+      <div className='w-screen md:w-3/5 xl:w-2/3 h-fit px-4 order-last md:order-first mt-0 md:mt-20 pb-4'>
         <div className='grid grid-cols-1 lg:grid-cols-6 gap-4'>
-          <div className='card md:col-span-3 bg-yellow-300 flex flex-col justify-between'>
-            <div className='flex flex-row items-center'>
-              <div className='bg-white rounded-full w-12 h-12 me-4'>
 
+          <div className='card md:col-span-3 bg-yellow-200 flex flex-col justify-between'>
+            <div className='flex flex-row items-center'>
+              <div className='bg-white rounded-full p-2 me-4'>
+                <Image src={"https://img.icons8.com/stickers/100/sun.png"} height={40} width={40} alt='sun-logo' />
               </div>
               <div>
-                <h3 className='font-bold text-lg'>Weather</h3>
-                <p className='text-sm'>Current Weather</p>
+                <h3 className='font-bold text-lg'>Sun</h3>
               </div>
             </div>
-            <div className='mt-6'>
-              <h2 className='text-5xl font-semibold'>22&deg;C</h2>
-              <p>Partly Cloudy</p>
-            </div>
 
-            <div className='flex justify-between mt-4'>
-              <h3 className='text-lg font-semibold'>Hourly Weather</h3>
-            </div>
-
-            <div className='grid grid-cols-5 gap-2 text-center text-sm justify-items-center mt-2'>
-              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
-                <p>05 AM</p>
-                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
-
+            <div className='flex items-center mt-8 '>
+              <div>
+                <div className='flex items-center mb-2'>
+                  <h2 className='text-4xl font-semibold'>20 UVI</h2>
+                  <div className='rounded-xl bg-white text-sm text-black px-2 py-1 ms-2 font-semibold'>
+                    <p>Moderate</p>
+                  </div>
                 </div>
-                <p className='font-bold'>24&deg;C</p>
-              </div>
-              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
-                <p>06 AM</p>
-                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
-
-                </div>
-                <p className='font-bold'>24&deg;C</p>
-              </div>
-              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
-                <p>07 AM</p>
-                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
-
-                </div>
-                <p className='font-bold'>24&deg;C</p>
-              </div>
-              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
-                <p>08 AM</p>
-                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
-
-                </div>
-                <p className='font-bold'>24&deg;C</p>
-              </div>
-              <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
-                <p>09 AM</p>
-                <div className='bg-orange-300 rounded-full w-8 h-8 my-1'>
-
-                </div>
-                <p className='font-bold'>24&deg;C</p>
+                <p>Moderate risk of from UV rays</p>
               </div>
             </div>
+
+            <div className='mt-4 text-center flex justify-between items-center text-sm'>
+              <div className='rounded-2xl py-2 px-4'>
+                <Image src={"https://img.icons8.com/stickers/100/sunrise.png"} height={50} width={50} alt='sunrise-logo' />
+                <p className='font-semibold'>Sunrise</p>
+                <p>{timeConv(Number(weatherDatas?.sys.sunrise))}</p>
+              </div>
+              <div className='flex-grow w-full border-2 border-dashed border-yellow-800'></div>
+              <div className='rounded-2xl py-2 px-4'>
+                <Image src={"https://img.icons8.com/stickers/100/sunset.png"} height={50} width={50} alt='sunset-logo' />
+                <p className='font-semibold'>Sunset</p>
+                <p>{timeConv(Number(weatherDatas?.sys.sunset))}</p>
+              </div>
+            </div>
+
           </div>
 
-          <div className='card md:col-span-3 bg-sky-300 flex flex-col justify-between'>
+          <div className='card md:col-span-3 bg-sky-200 flex flex-col justify-between'>
             <div className='flex flex-row items-center'>
-              <div className='bg-white rounded-full w-12 h-12 me-4'>
-
+              <div className='bg-white rounded-full p-2 me-4'>
+                <Image src={"https://img.icons8.com/stickers/100/wind.png"} height={40} width={40} alt='wind-logo' />
               </div>
               <div>
                 <h3 className='text-xl font-bold'>Air Quality</h3>
@@ -139,9 +153,9 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <div className='flex flex-row mt-8'>
+              <div className='flex items-center mt-8'>
                 <h2 className='text-5xl font-semibold'>390</h2>
-                <div className='rounded-2xl bg-green-300 px-2 py-1 h-fit ms-2'>
+                <div className='rounded-xl bg-white text-sm text-black px-2 py-1 ms-2 font-semibold'>
                   AQI
                 </div>
               </div>
@@ -153,49 +167,57 @@ export default function Home() {
                 <p className='text-center text-yellow-500'>Standard</p>
                 <p className='text-right text-red-600'>Bad</p>
               </div>
-              <div className='grid grid-cols-10 bg-zinc-200 rounded-full mt-1'>
-                <div className='bg-green-400 h-2 rounded-full col-span-2'>
+              <div className='grid grid-cols-15 bg-zinc-200 rounded-full mt-1'>
+                <div className={'bg-green-400 h-2 rounded-full col-span-' + airPollutionData?.list[0].main.aqi}>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className='card md:col-span-2 bg-orange-300 justify-between'>
+          <div className='card md:col-span-2 bg-slate-600  justify-between'>
             <div className='flex flex-row items-center'>
-              <div className='bg-white rounded-full w-12 h-12 me-4'>
-
+              <div className='bg-white rounded-full p-2 me-4'>
+                <Image src={"https://img.icons8.com/stickers/100/barometer.png"} height={40} width={40} alt='wind-logo' />
               </div>
               <div>
-                <h3 className='text-xl font-bold'>Additional Conditions</h3>
+                <h3 className='text-xl font-bold text-white'>Additional Conditions</h3>
               </div>
             </div>
 
-            <div className='mt-4 text-center grid grid-cols-1 gap-2 md:gap-2'>
-              <div className='rounded-2xl bg-blue-950 text-white px-2 py-2'>
+            <div className='mt-6 text-center grid grid-cols-2 gap-2'>
+              <div className='rounded-2xl bg-orange-200 px-2 py-2 col-span-1 flex flex-col items-center'>
+                <Image src={"https://img.icons8.com/stickers/100/atmospheric-pressure.png"} height={50} width={50} alt='presure-logo' />
                 <p className='text-sm'>Presure</p>
-                <h4 className='font-semibold'>800mb</h4>
+                <h4 className='font-semibold'>{weatherDatas?.main.pressure}mb</h4>
               </div>
-              <div className='rounded-2xl bg-white px-2 py-2'>
+              <div className='rounded-2xl bg-white px-2 py-2 col-span-1 flex flex-col items-center'>
+                <Image src={"https://img.icons8.com/stickers/100/dew-point.png"} height={50} width={50} alt='humadity-logo' />
                 <p className='text-sm'>Humadity</p>
-                <h4 className='font-semibold'>87%</h4>
+                <h4 className='font-semibold'>{weatherDatas?.main.humidity}%</h4>
               </div>
-              <div className='rounded-2xl bg-green-300 px-2 py-2'>
+              <div className='rounded-2xl bg-green-200 px-2 py-2 col-span-1 flex flex-col items-center'>
+                <Image src={"https://img.icons8.com/stickers/100/visible.png"} height={50} width={50} alt='visibility-logo' />
                 <p className='text-sm'>Visibility</p>
-                <h4 className='font-semibold'>4.3 km</h4>
+                <h4 className='font-semibold'>{(weatherDatas?.visibility!) / 1000} km</h4>
+              </div>
+              <div className='rounded-2xl bg-sky-600 text-white px-2 py-2 col-span-1 flex flex-col items-center'>
+                <Image src={"https://img.icons8.com/stickers/100/cloud--v1.png"} height={50} width={50} alt='cloud-logo' />
+                <p className='text-sm'>Cloudiness</p>
+                <h4 className='font-semibold'>{weatherDatas?.clouds.all}%</h4>
               </div>
             </div>
 
           </div>
 
-          <div className='md:col-span-2 card bg-slate-200 flex flex-col'>
+          <div className='md:col-span-2 card bg-green-200 flex flex-col'>
             <div className='flex flex-row'>
-              <h3 className='text-2xl font-semibold'>How&apos;s the temperature today?</h3>
+              <h3 className='text-2xl font-bold'>How is the temperature today?</h3>
             </div>
             <div>
               <div className='chart-container mt-8 w-full h-24 px-10'>
                 <Line data={chartData} options={chartOptions} />
               </div>
-              <div className='grid grid-cols-4 justify-items-center text-center border-2 rounded-2xl text-sm'>
+              <div className='grid grid-cols-4 justify-items-center text-center rounded-2xl text-sm'>
                 <div>
                   <div className='py-2 px-2 w-fit'>
                     <p className='font-semibold'>Morning</p>
@@ -223,7 +245,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className='card md:col-span-2 bg-green-300'>
+
+          <div className='card md:col-span-2 bg-orange-200'>
             <div className='flex flex-row'>
               <h3 className='text-xl font-bold'>Tomorrow</h3>
             </div>
@@ -238,55 +261,75 @@ export default function Home() {
       <div className='w-screen md:w-2/5 xl:w-1/3 bg-white md:bg-zinc-100 md:min-h-screen px-4 py-4 mt-16 md:mt-0'>
         <div className='flex justify-end'>
           <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
-            <Image src={"https://img.icons8.com/ios/150/search--v1.png"} height={25} width={25} alt='searchLogo' />
+            <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />
             <input type='text' id='searchlogo' name='searchlogo' placeholder='Search City' className='ms-4 w-full text-md' />
           </div>
         </div>
 
         <div className='mt-8 mb-4'>
           <div className='flex flex-row items-center'>
-            <div><Image src={"https://img.icons8.com/ios/100/marker--v1.png"} height={20} width={20} alt='locationLogo' /></div>
-            <h1 className='text-lg ms-2 font-semibold'>Agam, Indonesia</h1>
+            <div><Image src={"https://img.icons8.com/stickers/100/marker.png"} height={25} width={25} alt='locationLogo' /></div>
+            <h1 className='text-lg ms-2 font-semibold'>{weatherDatas?.name}, {weatherDatas?.sys.country}</h1>
           </div>
         </div>
 
         <div className='border-y w-full border-slate-400 mb-4'></div>
 
-        <h2 className='text-3xl font-bold'>Sun</h2>
+        <h2 className='text-3xl font-bold'>Current Weather</h2>
 
-        <div className='px-8 my-8'>
-          <div className='flex items-center px-4'>
-            <div className='flex-none rounded-full bg-yellow-400 h-8 w-8'></div>
-            <div className='flex-grow w-full border-2 border-dashed border-slate-300'></div>
-            <div className='flex-none rounded-full bg-orange-400 h-8 w-8'></div>
+        <div className='mt-6'>
+          <div className='flex items-center'>
+            <h2 className='text-6xl font-semibold'>{weatherDatas?.main.temp}&deg;C</h2>
+            <div className='rounded-xl bg-green-300 text-sm text-black px-2 py-1 ms-2 font-semibold'>
+              {weatherDatas?.main.feels_like}&deg;C
+            </div>
           </div>
-          <div className='flex justify-between mt-2 text-sm text-center'>
-            <div>
-              <p className='font-semibold'>Sunrise</p>
-              <p>06.00</p>
-            </div>
-            <div>
-              <p className='font-semibold'>Sunset</p>
-              <p>18.15</p>
-            </div>
+
+          <div className='flex flex-col mt-4'>
+            <Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={100} width={100} alt='weather-logo' />
+            <p className='font-semibold'>{weatherDatas?.weather[0].description}</p>
           </div>
         </div>
 
-        <div className='card bg-blue-950 text-white p-4 flex items-center mt-4 '>
-          <div className='rounded-full bg-yellow-400 h-12 w-12 me-4'>
+        <div className='flex justify-between mt-8'>
+          <h3 className='text-lg font-semibold'>Hourly Weather</h3>
+        </div>
 
+        <div className='grid grid-cols-5 gap-2 text-center text-sm justify-items-center mt-2'>
+          <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+            <p>05 AM</p>
+            <Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={40} width={40} alt='weather-logo' className='my-1' />
+            <p className='font-bold'>24&deg;C</p>
           </div>
-          <div>
-            <div className='flex items-center'>
-              <h2 className='text-2xl font-semibold'>20 UVI</h2>
-              <div className='rounded-2xl bg-green-300 text-sm text-black px-2 ms-4'>
-                <p>Moderate</p>
-              </div>
-            </div>
-            <p className='text-sm'>Moderate risk of from UV rays</p>
+          <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+            <p>06 AM</p>
+            <Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={40} width={40} alt='weather-logo' className='my-1' />
+            <p className='font-bold'>24&deg;C</p>
+          </div>
+          <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+            <p>07 AM</p>
+            <Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={40} width={40} alt='weather-logo' className='my-1' />
+            <p className='font-bold'>24&deg;C</p>
+          </div>
+          <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+            <p>08 AM</p>
+            <Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={40} width={40} alt='weather-logo' className='my-1' />
+            <p className='font-bold'>24&deg;C</p>
+          </div>
+          <div className='rounded-2xl bg-white px-2 py-2 flex flex-col items-center w-full'>
+            <p>09 AM</p>
+            <Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={40} width={40} alt='weather-logo' className='my-1' />
+            <p className='font-bold'>24&deg;C</p>
           </div>
         </div>
       </div>
     </main>
   )
+}
+
+function timeConv(unixtime: number): string {
+  const date = new Date(unixtime * 1000)
+  var hour = (Number(date.getHours()) < 10) ? "0" + date.getHours() : date.getHours()
+  var minute = (Number(date.getMinutes()) < 10) ? "0" + date.getMinutes() : date.getMinutes()
+  return hour + ":" + minute
 }
