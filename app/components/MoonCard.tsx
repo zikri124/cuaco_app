@@ -7,7 +7,7 @@ interface Props {
 
 export default function MoonCard({ astroData }: Props) {
     return (
-        <div className='col-span-full lg:col-span-2 card bg-sky-800 flex flex-col'>
+        <div className='col-span-full xl:col-span-2 card bg-sky-800 flex flex-col'>
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/full-moon.png"} height={40} width={40} alt='sun-logo' />

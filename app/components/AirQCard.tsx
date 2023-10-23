@@ -7,7 +7,7 @@ interface Props {
 
 export default function AirQCard({ air_quality }: Props) {
     return (
-        <div className={'card bg-sky-300 flex flex-col justify-between col-span-full lg:col-span-4'} >
+        <div className={'card bg-sky-300 flex flex-col justify-between col-span-full xl:col-span-4'} >
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/wind.png"} height={40} width={40} alt='wind-logo' />

@@ -9,7 +9,7 @@ interface Props {
 
 export default function AddCondtionCard({ pressure, humidity, vision, cloud }: Props) {
     return (
-        <div className={'card col-span-full bg-slate-400 justify-between lg:col-span-3'} >
+        <div className={'card col-span-full bg-slate-400 justify-between xl:col-span-3'} >
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/barometer.png"} height={40} width={40} alt='wind-logo' />

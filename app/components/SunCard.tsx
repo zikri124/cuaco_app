@@ -8,7 +8,7 @@ interface props {
 
 export default function SunCard({ uvi, sunriseT, sunsetT }: props) {
     return (
-        <div className={'card bg-amber-300 flex flex-col justify-between col-span-8 lg:col-span-4'} >
+        <div className={'card bg-amber-300 flex flex-col justify-between col-span-8 xl:col-span-4'} >
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/sun.png"} height={40} width={40} alt='sun-logo' />

@@ -19,20 +19,13 @@ export default function HourlyWeather({ forecastday }: Props) {
         }
     }
 
-    function timeConv(unixtime: number): string {
-        const date2 = new Date(unixtime * 1000)
-        var hour = (Number(date2.getHours()) < 10) ? "0" + date2.getHours() : date2.getHours()
-        var minute = (Number(date2.getMinutes()) < 10) ? "0" + date2.getMinutes() : date2.getMinutes()
-        return hour + ":" + minute
-    }
-
     return (
         <div>
             <div className='flex justify-between mt-8'>
                 <h3 className='text-lg font-semibold'>Hourly Weather</h3>
             </div>
 
-            <div className='flex flex-row md:flex-col gap-2 mt-2 overflow-x-auto'>
+            <div className='flex flex-row gap-2 mt-2 overflow-x-auto pb-2'>
                 {hourArray.map((value, i) => (
                     <div key={i}>
                         <HourlyWeatherCard weatherData={forecastday![value[0]].hour![value[1]]} />

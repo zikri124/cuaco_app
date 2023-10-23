@@ -22,7 +22,7 @@ export default function Home() {
     var interval = setInterval(() => {
       fetchData()
       console.log("called")
-    }, 1000 * 60 * 30) 
+    }, 1000 * 60 * 30)
 
     return () => {
       clearInterval(interval)
@@ -51,8 +51,21 @@ export default function Home() {
     <main className="min-h-screen">
       {isLoading && <LoadingScreen />}
 
-      {!isLoading && <div className='grid grid-cols-8'>
-        <div className='col-span-8 md:col-span-5 lg:col-span-6 bg-white md:bg-gray-200 h-fit md:h-screen overflow-y-auto px-4 order-last md:order-first pt-0 md:pt-20 lg:pb-4'>
+      {!isLoading && <div className='grid grid-cols-10'>
+        <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 py-4 mt-16  h-fit'>
+          <div className='flex justify-end'>
+            <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
+              <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />
+              <input type='text' id='searchlogo' name='searchlogo' placeholder='Search City' className='ms-4 w-full text-md' />
+            </div>
+          </div>
+
+          <CurrentWeather currentData={weatherDatas?.current!} additionalData={weatherDatas?.forecast.forecastday![0].hour![new Date().getHours()]!} location={weatherDatas?.location!} />
+
+          <HourlyWeather forecastday={weatherDatas?.forecast.forecastday} />
+        </div>
+
+        <div className='col-span-full md:col-span-5 lg:col-span-6 xl:col-span-7 bg-white md:bg-gray-200 md:min-h-screen px-4 pt-0 md:pt-4 lg:pb-4'>
           <div className='grid grid-cols-8 gap-4'>
 
             <AirQCard air_quality={weatherDatas?.current.air_quality!} />
@@ -65,34 +78,12 @@ export default function Home() {
 
             <TomorrowCard forecastday={weatherDatas?.forecast.forecastday} />
 
-            <Footer />
+            <Footer last_updated={weatherDatas?.current.last_updated!} />
           </div>
         </div>
 
-        <div className='col-span-8 md:col-span-3 lg:col-span-2 bg-white md:min-h-screen px-4 py-4 mt-16 md:mt-0 h-fit md:h-screen overflow-y-auto'>
-          <div className='flex justify-end'>
-            <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
-              <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />
-              <input type='text' id='searchlogo' name='searchlogo' placeholder='Search City' className='ms-4 w-full text-md' />
-            </div>
-          </div>
 
-          <div className='mt-8 mb-4'>
-            <div className='flex flex-row items-center'>
-              <div><Image src={"https://img.icons8.com/stickers/100/marker.png"} height={25} width={25} alt='locationLogo' /></div>
-              <h1 className='text-lg ms-2 font-semibold'>{weatherDatas?.location.name}, {weatherDatas?.location.region}, {weatherDatas?.location.country}</h1>
-            </div>
-          </div>
-
-          <div className='border-y w-full border-slate-400 mb-4'></div>
-
-          <CurrentWeather currentData={weatherDatas?.current!} additionalData={weatherDatas?.forecast.forecastday![0].hour![new Date().getHours()]!} />
-
-          <HourlyWeather forecastday={weatherDatas?.forecast.forecastday} />
-
-        </div>
       </div>}
-
     </main>
   )
 }

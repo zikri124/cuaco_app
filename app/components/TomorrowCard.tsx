@@ -7,7 +7,7 @@ interface Props {
 
 export default function TomorrowCard({ forecastday }: Props) {
     return (
-        <div className={'card bg-orange-300 col-span-full lg:col-span-3'} >
+        <div className={'card bg-orange-300 col-span-full xl:col-span-3'} >
             <div className='flex flex-row'>
                 <h3 className='text-xl font-bold'>Tomorrow</h3>
                 <p></p>
