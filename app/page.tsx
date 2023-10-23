@@ -14,6 +14,7 @@ import CurrentWeather from './components/CurrentWeather';
 import MoonCard from './components/MoonCard';
 import { getWeatherImage } from './util';
 import ForecastCard from './components/ForecastCard';
+import SearchCity from './components/SearchCity';
 
 export default function Home() {
   const [weatherDatas, setWeatherDatas] = useState<WeatherData>()
@@ -34,7 +35,7 @@ export default function Home() {
   const abortCont = new AbortController()
 
   async function fetchData() {
-    await fetch('http://api.weatherapi.com/v1/forecast.json?key=5014f81ac6194edc9f0163605232010&q=Malang&days=5&aqi=yes&alerts=no', { signal: abortCont.signal })
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}forecast.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=Malang&days=5&aqi=yes&alerts=no`, { signal: abortCont.signal })
       .then(res => {
         return res.json()
       })
@@ -55,12 +56,7 @@ export default function Home() {
 
       {!isLoading && <div className='grid grid-cols-10'>
         <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 pt-20 h-fit'>
-          <div className='flex justify-end'>
-            <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
-              <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />
-              <input type='text' id='searchlogo' name='searchlogo' placeholder='Search City' className='ms-4 w-full text-md' />
-            </div>
-          </div>
+          <SearchCity />
 
           <CurrentWeather currentData={weatherDatas?.current!} additionalData={weatherDatas?.forecast.forecastday![0].hour![new Date().getHours()]!} location={weatherDatas?.location!} />
 
