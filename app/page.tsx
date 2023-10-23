@@ -52,7 +52,7 @@ export default function Home() {
       {isLoading && <LoadingScreen />}
 
       {!isLoading && <div className='grid grid-cols-10'>
-        <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 py-4 mt-16  h-fit'>
+        <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 pt-20  h-fit'>
           <div className='flex justify-end'>
             <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
               <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />

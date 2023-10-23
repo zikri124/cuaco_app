@@ -18,20 +18,23 @@ export default function AirQCard({ air_quality }: Props) {
                 </div>
             </div>
 
-            <div className='rounded-2xl bg-white p-4 mt-4'>
-                <h3 className='text-xl font-semibold'>AQI</h3>
-                <div className='flex items-center mt-4'>
-                    <h2 className='text-5xl font-semibold'>{air_quality["us-epa-index"]}</h2>
-                    <div className='rounded-xl bg-sky-200 text-sm text-black px-2 py-1 ms-2 font-semibold'>
-                        US - EPA standard
+            <div className='rounded-2xl bg-white p-4 mt-4 grid grid-cols-2'>
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                    <h3 className='text-xl font-semibold text-center'>Air Quality Index</h3>
+                    <div className='rounded-xl bg-sky-200 text-sm text-black px-2 py-1 ms-2 font-bold'>
+                        US - EPA Standard
                     </div>
                 </div>
-                <div className='grid grid-cols-3 items-around text-sm mt-4 font-semibold'>
+                <div className="flex items-end justify-center my-4">
+                    <h2 className='text-5xl font-semibold text-center'>{air_quality["us-epa-index"]}</h2>
+                    <p>/6</p>
+                </div>
+                <div className='grid grid-cols-3 items-around text-sm mt-4 font-semibold col-span-2'>
                     <p className='text-green-600'>Good</p>
                     <p className='text-center text-yellow-500'>Standard</p>
                     <p className='text-right text-red-600'>Bad</p>
                 </div>
-                <div className='grid grid-cols-6 bg-zinc-200 rounded-full mt-1'>
+                <div className='grid grid-cols-6 bg-zinc-200 rounded-full mt-1 col-span-2'>
                     <div className={'bg-slate-800 h-4 rounded-full col-span-' + air_quality["us-epa-index"]}>
                     </div>
                 </div>

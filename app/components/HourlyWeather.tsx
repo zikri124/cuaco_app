@@ -21,7 +21,7 @@ export default function HourlyWeather({ forecastday }: Props) {
 
     return (
         <div>
-            <div className='flex justify-between mt-8'>
+            <div className='flex justify-between mt-4'>
                 <h3 className='text-lg font-semibold'>Hourly Weather</h3>
             </div>
 
