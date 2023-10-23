@@ -6,6 +6,8 @@ interface Props {
 }
 
 export default function AirQCard({ air_quality }: Props) {
+    var aqi = air_quality["us-epa-index"]
+    
     return (
         <div className={'card bg-sky-300 flex flex-col justify-between col-span-full xl:col-span-4'} >
             <div className='flex flex-row items-center'>
@@ -26,7 +28,7 @@ export default function AirQCard({ air_quality }: Props) {
                     </div>
                 </div>
                 <div className="flex items-end justify-center my-4">
-                    <h2 className='text-5xl font-semibold text-center'>{air_quality["us-epa-index"]}</h2>
+                    <h2 className='text-5xl font-semibold text-center'>{aqi}</h2>
                     <p>/6</p>
                 </div>
                 <div className='grid grid-cols-3 items-around text-sm mt-4 font-semibold col-span-2'>
@@ -34,8 +36,8 @@ export default function AirQCard({ air_quality }: Props) {
                     <p className='text-center text-yellow-500'>Standard</p>
                     <p className='text-right text-red-600'>Bad</p>
                 </div>
-                <div className='grid grid-cols-6 bg-zinc-200 rounded-full mt-1 col-span-2'>
-                    <div className={'bg-slate-800 h-4 rounded-full col-span-' + air_quality["us-epa-index"]}>
+                <div className='grid grid-cols-6 bg-zinc-200 rounded-full mt-1 col-span-2 w-full'>
+                    <div className={`bg-slate-800 h-4 rounded-full col-span-${aqi}`}>
                     </div>
                 </div>
             </div>

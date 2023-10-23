@@ -11,7 +11,7 @@ interface Props {
 export default function CurrentWeather({ currentData, additionalData, location }: Props) {
 
     return (
-        <div className='mt-6 card bg-slate-200 py-8'>
+        <div className='mt-4 card bg-slate-200 pt-6'>
             <div className='flex flex-col items-center px-2'>
                 <div className='text-center border-b-2 pb-1 border-slate-800 w-fit mb-6'>
                     <h1 className='text-lg font-semibold'>{location.name}, {location.region}, {location.country}</h1>

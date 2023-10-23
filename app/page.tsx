@@ -12,6 +12,8 @@ import LoadingScreen from './components/LoadingScreen';
 import HourlyWeather from './components/HourlyWeather';
 import CurrentWeather from './components/CurrentWeather';
 import MoonCard from './components/MoonCard';
+import { getWeatherImage } from './util';
+import ForecastCard from './components/ForecastCard';
 
 export default function Home() {
   const [weatherDatas, setWeatherDatas] = useState<WeatherData>()
@@ -52,7 +54,7 @@ export default function Home() {
       {isLoading && <LoadingScreen />}
 
       {!isLoading && <div className='grid grid-cols-10'>
-        <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 pt-20  h-fit'>
+        <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 pt-20 h-fit'>
           <div className='flex justify-end'>
             <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
               <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />
@@ -65,7 +67,7 @@ export default function Home() {
           <HourlyWeather forecastday={weatherDatas?.forecast.forecastday} />
         </div>
 
-        <div className='col-span-full md:col-span-5 lg:col-span-6 xl:col-span-7 bg-white md:bg-gray-200 md:min-h-screen px-4 pt-0 md:pt-4 lg:pb-4'>
+        <div className='col-span-full md:col-span-5 lg:col-span-6 xl:col-span-7 bg-white md:bg-gray-200 md:h-screen md:overflow-y-auto px-4 pt-0 md:pt-8 lg:pb-4'>
           <div className='grid grid-cols-8 gap-4'>
 
             <AirQCard air_quality={weatherDatas?.current.air_quality!} />
@@ -77,6 +79,8 @@ export default function Home() {
             <AddCondtionCard pressure={Number(weatherDatas?.current.pressure_mb)} humidity={Number(weatherDatas?.current.humidity)} vision={Number(weatherDatas?.current.vis_km)} cloud={Number(weatherDatas?.current.cloud)} />
 
             <TomorrowCard forecastday={weatherDatas?.forecast.forecastday} />
+
+            <ForecastCard forecastday={weatherDatas?.forecast.forecastday} />
 
             <Footer last_updated={weatherDatas?.current.last_updated!} />
           </div>
