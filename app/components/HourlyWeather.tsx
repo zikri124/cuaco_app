@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Forecast, ForecastdayEntity } from "../interfaces/WeatherData"
+import HourlyWeatherCard from "./HourlyWeatherCard";
 
 interface Props {
     forecastday?: (ForecastdayEntity)[] | null;
@@ -31,20 +32,10 @@ export default function HourlyWeather({ forecastday }: Props) {
                 <h3 className='text-lg font-semibold'>Hourly Weather</h3>
             </div>
 
-
             <div className='flex flex-row md:flex-col gap-2 mt-2 overflow-x-auto'>
                 {hourArray.map((value, i) => (
                     <div key={i}>
-                        <div className='flex flex-col text-sm gap-2'>
-                            <div className='rounded-2xl bg-slate-600 p-4 flex flex-col md:flex-row text-center md:text-left items-center w-max md:w-full text-white'>
-                                <div><Image src={"https://img.icons8.com/stickers/100/partly-cloudy-day.png"} height={44} width={44} alt='weather-logo' className='my-1' /></div>
-                                <div className='md:ms-4'>
-                                    <p>{date.getDate() + "/" + (date.getMonth() + 1) + " " + timeConv(Number(forecastday![value[0]].hour![value[1]].time_epoch))}&deg;C</p>
-                                    <p className='font-bold'>{forecastday![value[0]].hour![value[1]].temp_c}&deg;C</p>
-                                    <p>Rain {forecastday![value[0]].hour![value[1]].chance_of_rain}%</p>
-                                </div>
-                            </div>
-                        </div>
+                        <HourlyWeatherCard weatherData={forecastday![value[0]].hour![value[1]]} />
                     </div>
                 ))}
             </div>

@@ -3,19 +3,18 @@ import Image from "next/image"
 interface props {
     uvi: number,
     sunriseT: string,
-    sunsetT: string,
-    colW: number
+    sunsetT: string
 }
 
-export default function SunCard({ uvi, sunriseT, sunsetT, colW }: props) {
+export default function SunCard({ uvi, sunriseT, sunsetT }: props) {
     return (
-        <div className={'card bg-yellow-200 flex flex-col justify-between col-span-8 lg:col-span-' + colW} >
+        <div className={'card bg-amber-300 flex flex-col justify-between col-span-8 lg:col-span-4'} >
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/sun.png"} height={40} width={40} alt='sun-logo' />
                 </div>
                 <div>
-                    <h3 className='font-bold text-lg'>Sun</h3>
+                    <h3 className='font-bold text-xl'>Sun</h3>
                 </div>
             </div>
 
@@ -23,9 +22,6 @@ export default function SunCard({ uvi, sunriseT, sunsetT, colW }: props) {
                 <div>
                     <div className='flex items-center mb-2'>
                         <h2 className='text-4xl font-semibold'>{uvi} UVI</h2>
-                        {/* <div className='rounded-xl bg-white text-sm text-black px-2 py-1 ms-2 font-semibold'>
-                    <p>Moderate</p>
-                  </div> */}
                     </div>
                     <p className='bg-white px-4 py-2 rounded-full font-semibold'>Don&apos;t forget to use SunScreen everyday!</p>
                 </div>

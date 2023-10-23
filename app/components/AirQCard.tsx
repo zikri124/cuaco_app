@@ -2,13 +2,12 @@ import Image from "next/image"
 import { AirQuality } from "../interfaces/WeatherData"
 
 interface Props {
-    air_quality: AirQuality,
-    colW: number
+    air_quality: AirQuality
 }
 
-export default function AirQCard({ air_quality, colW }: Props) {
+export default function AirQCard({ air_quality }: Props) {
     return (
-        <div className={'card bg-sky-200 flex flex-col justify-between col-span-full lg:col-span-' + colW} >
+        <div className={'card bg-sky-300 flex flex-col justify-between col-span-full lg:col-span-4'} >
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/wind.png"} height={40} width={40} alt='wind-logo' />
@@ -27,7 +26,7 @@ export default function AirQCard({ air_quality, colW }: Props) {
                         US - EPA standard
                     </div>
                 </div>
-                <div className='grid grid-cols-3 items-around text-sm mt-4'>
+                <div className='grid grid-cols-3 items-around text-sm mt-4 font-semibold'>
                     <p className='text-green-600'>Good</p>
                     <p className='text-center text-yellow-500'>Standard</p>
                     <p className='text-right text-red-600'>Bad</p>
