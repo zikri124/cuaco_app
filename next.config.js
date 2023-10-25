@@ -7,7 +7,8 @@ const nextConfig = {
                 hostname: 'img.icons8.com'
             }
         ]
-    }
+    },
+    reactStrictMode: true,
 }
 
 module.exports = nextConfig

@@ -12,18 +12,19 @@ import LoadingScreen from './components/LoadingScreen';
 import HourlyWeather from './components/HourlyWeather';
 import CurrentWeather from './components/CurrentWeather';
 import MoonCard from './components/MoonCard';
-import { getWeatherImage } from './util';
 import ForecastCard from './components/ForecastCard';
 import SearchCity from './components/SearchCity';
+import { FetchWeatherCurrentLoc } from './components/FetchData'
 
 export default function Home() {
   const [weatherDatas, setWeatherDatas] = useState<WeatherData>()
   const [isLoading, setIsLoading] = useState<Boolean>(true)
 
+  
   useEffect(() => {
-    fetchData()
+    FetchWeatherCurrentLoc(setIsLoading, setWeatherDatas)
     var interval = setInterval(() => {
-      fetchData()
+      FetchWeatherCurrentLoc(setIsLoading, setWeatherDatas)
       console.log("called")
     }, 1000 * 60 * 30)
 
@@ -31,24 +32,6 @@ export default function Home() {
       clearInterval(interval)
     }
   }, [])
-
-  const abortCont = new AbortController()
-
-  async function fetchData() {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}forecast.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=Malang&days=5&aqi=yes&alerts=no`, { signal: abortCont.signal })
-      .then(res => {
-        return res.json()
-      })
-      .then(data => {
-        const resultData: WeatherData = data
-        setWeatherDatas(resultData)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
-    return () => abortCont.abort()
-  }
 
   return (
     <main className="min-h-screen">
