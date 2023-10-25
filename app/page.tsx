@@ -1,6 +1,5 @@
 "use client";
 
-import Image from 'next/image'
 import WeatherData from './interfaces/WeatherData';
 import { useEffect, useState } from 'react';
 import SunCard from './components/SunCard';
@@ -14,24 +13,35 @@ import CurrentWeather from './components/CurrentWeather';
 import MoonCard from './components/MoonCard';
 import ForecastCard from './components/ForecastCard';
 import SearchCity from './components/SearchCity';
-import { FetchWeatherCurrentLoc } from './components/FetchData'
+import { FetchWeatherCurrentLoc, FetchWeatherDataByCity } from './components/FetchData'
 
 export default function Home() {
   const [weatherDatas, setWeatherDatas] = useState<WeatherData>()
   const [isLoading, setIsLoading] = useState<Boolean>(true)
+  const [location, setLocation] = useState<String>("")
 
-  
   useEffect(() => {
-    FetchWeatherCurrentLoc(setIsLoading, setWeatherDatas)
-    var interval = setInterval(() => {
+    if (location == "") {
       FetchWeatherCurrentLoc(setIsLoading, setWeatherDatas)
-      console.log("called")
-    }, 1000 * 60 * 30)
+      var interval = setInterval(() => {
+        FetchWeatherCurrentLoc(setIsLoading, setWeatherDatas)
+      }, 1000 * 60 * 30)
 
-    return () => {
-      clearInterval(interval)
+      return () => {
+        clearInterval(interval)
+      }
+    } else {
+      FetchWeatherDataByCity(location, setIsLoading, setWeatherDatas)
+
+      var interval = setInterval(() => {
+        FetchWeatherDataByCity(location, setIsLoading, setWeatherDatas)
+      }, 1000 * 60 * 30)
+
+      return () => {
+        clearInterval(interval)
+      }
     }
-  }, [])
+  }, [location])
 
   return (
     <main className="min-h-screen">
@@ -39,7 +49,7 @@ export default function Home() {
 
       {!isLoading && <div className='grid grid-cols-10'>
         <div className='col-span-full md:col-span-5 lg:col-span-4 xl:col-span-3 bg-white md:min-h-screen px-4 pt-20 h-fit'>
-          <SearchCity />
+          <SearchCity setIsLoading={setIsLoading} setWeatherData={setWeatherDatas} setLocation={setLocation} />
 
           <CurrentWeather currentData={weatherDatas?.current!} additionalData={weatherDatas?.forecast.forecastday![0].hour![new Date().getHours()]!} location={weatherDatas?.location!} />
 

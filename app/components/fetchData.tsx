@@ -3,31 +3,17 @@ import WeatherData from "../interfaces/WeatherData"
 import { SearchCityData } from "../interfaces/Location"
 
 
-export async function FetchWeatherCurrentLoc(setIsLoading: Dispatch<SetStateAction<Boolean>>, setWeatherDatas: Dispatch<SetStateAction<WeatherData | undefined>>) {
+export async function FetchWeatherDataByCity(city: String, setIsLoading: Dispatch<SetStateAction<Boolean>>, setWeatherDatas: Dispatch<SetStateAction<WeatherData | undefined>>) {
     const abortCont = new AbortController()
-    const abortCont2 = new AbortController()
 
-    async function getWeatherData(city: String) {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}forecast.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=${city}&days=5&aqi=yes&alerts=no`, { signal: abortCont.signal })
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                const resultData: WeatherData = data
-                setWeatherDatas(resultData)
-                setIsLoading(false)
-            })
-            .catch((err) => {
-                console.log(err.message)
-            })
-    }
-
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}ip.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=auto:ip`, { signal: abortCont2.signal })
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}forecast.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=${city}&days=5&aqi=yes&alerts=no`, { signal: abortCont.signal })
         .then(res => {
             return res.json()
         })
         .then(data => {
-            getWeatherData(data.city)
+            const resultData: WeatherData = data
+            setWeatherDatas(resultData)
+            setIsLoading(false)
         })
         .catch((err) => {
             console.log(err.message)
@@ -35,7 +21,25 @@ export async function FetchWeatherCurrentLoc(setIsLoading: Dispatch<SetStateActi
 
     return () => {
         abortCont.abort()
-        abortCont2.abort()
+    }
+}
+
+export async function FetchWeatherCurrentLoc(setIsLoading: Dispatch<SetStateAction<Boolean>>, setWeatherDatas: Dispatch<SetStateAction<WeatherData | undefined>>) {
+    const abortCont = new AbortController()
+
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}ip.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=auto:ip`, { signal: abortCont.signal })
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            FetchWeatherDataByCity(data.city, setIsLoading, setWeatherDatas)
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+
+    return () => {
+        abortCont.abort()
     }
 }
 
@@ -47,7 +51,6 @@ export async function FetchSearchCity(keyword: String, setCityQuery: Dispatch<Se
             return res.json()
         })
         .then(data => {
-            console.log(data)
             setCityQuery(data)
         })
         .catch((err) => {
@@ -55,9 +58,4 @@ export async function FetchSearchCity(keyword: String, setCityQuery: Dispatch<Se
         })
 
     return () => abortCont.abort()
-}
-
-export async function FetchWeatherByCity(setIsLoading: Dispatch<SetStateAction<Boolean>>, setWeatherDatas: Dispatch<SetStateAction<WeatherData | undefined>>, city: String) {
-    const abortCont = new AbortController()
-
 }

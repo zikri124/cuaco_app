@@ -20,7 +20,7 @@ export default function HourlyWeatherCard({ weatherData }: Props) {
     
     return (
         <div className='flex flex-col text-sm gap-2 w-max'>
-            <div className='rounded-2xl bg-slate-600 p-4 flex flex-col text-center items-center w-max md:w-full text-white'>
+            <div className='rounded-2xl bg-sky-800 p-4 flex flex-col text-center items-center w-max md:w-full text-white'>
                 <div><Image src={getWeatherImage(weatherData.condition.code)} height={50} width={50} alt='weather-logo' className='my-1' /></div>
                 <div>
                     <p>{timeConv(weatherData.time_epoch)}</p>

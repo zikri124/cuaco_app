@@ -22,7 +22,7 @@ export default function CurrentWeather({ currentData, additionalData, location }
 
             <div className='text-center mt-8'>
                 <h2 className='text-7xl font-semibold'>{currentData.temp_c}&deg;C</h2>
-                <div className='text-black px-2 py-1 px-4 text-sm bg-slate-800 rounded-full text-white w-fit mx-auto mt-4'>
+                <div className='text-black px-2 py-1 px-4 text-sm bg-sky-800 rounded-full text-white w-fit mx-auto mt-4'>
                     Feels Like {currentData.feelslike_c}&deg;C
                 </div>
             </div>
