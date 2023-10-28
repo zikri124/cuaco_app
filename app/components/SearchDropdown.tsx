@@ -16,7 +16,7 @@ export default function SearchDropdown({ setIsLoading, setLocation, cityQuery, k
     }
 
     return (
-        <div className="dropdown absolute left-0 h-fit mt-2 px-4 w-full md:w-[50%] lg:w-[40%] xl:w-[30%] overflow-y-auto">
+        <div className="dropdown absolute left-0 lg:left-auto h-fit mt-2 px-4 md:px-8 lg:px-0 w-full md:w-full lg:w-full lg:max-w-[32rem] overflow-y-auto">
             <div className="bg-white flex flex-col rounded-2xl border-2 px-2 py-1">
                 <button className="rounded-xl p-4 bg-slate-200 my-1 w-full text-left font-semibold" onClick={() => handleSelectLocation("")} >
                     <div className="flex flex-row items-center gap-2">

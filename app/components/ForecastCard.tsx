@@ -8,7 +8,7 @@ interface Props {
 
 export default function ForecastCard({ forecastday }: Props) {
     return (
-        <div className='card bg-slate-400 col-span-full xl:col-span-2 flex flex-col'>
+        <div className='card bg-slate-400 col-span-full flex flex-col'>
             <h3 className='text-xl font-bold text-white'>Forecast</h3>
             <div className='flex flex-col gap-4 mt-4'>
                 <div className='px-2 py-2 rounded-2xl bg-white flex gap-4 items-center'>

@@ -5,7 +5,7 @@ import React from 'react'
 export default function Navbar() {
     return (
         <>
-            <div className='absolute top-0 w-fit py-4 px-4 flex items-center z-10'>
+            <div className='w-fit flex items-center z-10'>
                 <div className='w-fit'>
                     <Link href="/" className='flex items-center'>
                         <div className='rounded-full bg-orange-400 p-1 me-2'>

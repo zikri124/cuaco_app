@@ -59,7 +59,7 @@ export default memo(function SearchCity({ setIsLoading, setWeatherData, setLocat
     }, [keyword])
 
     return (
-        <div ref={ref}>
+        <div ref={ref} className="mt-4">
             <div className='flex justify-end'>
                 <div className='border border-slate-400 bg-white rounded-full px-4 py-2 flex w-full'>
                     <Image src={"https://img.icons8.com/stickers/100/search.png"} height={25} width={25} alt='searchLogo' />

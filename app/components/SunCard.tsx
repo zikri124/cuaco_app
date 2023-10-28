@@ -36,7 +36,7 @@ export default function SunCard({ uvi, sunriseT, sunsetT }: props) {
     }
 
     return (
-        <div className={'card bg-amber-300 flex flex-col justify-between col-span-8 xl:col-span-4'} >
+        <div className={'card bg-amber-300 flex flex-col justify-between col-span-full'} >
             <div className='flex flex-row items-center'>
                 <div className='bg-white rounded-full p-2 me-4'>
                     <Image src={"https://img.icons8.com/stickers/100/sun.png"} height={40} width={40} alt='sun-logo' />
@@ -59,7 +59,7 @@ export default function SunCard({ uvi, sunriseT, sunsetT }: props) {
                 </div>
             </div>
 
-            <div className='mt-2 text-center flex justify-between items-center text-sm px-2'>
+            <div className='mt-4 text-center flex justify-between items-center text-sm px-2'>
                 <div className='rounded-2xl pe-6 flex flex-col items-center'>
                     <Image src={"https://img.icons8.com/stickers/100/sunrise.png"} height={50} width={50} alt='sunrise-logo' />
                     <p className='font-semibold'>Sunrise</p>

@@ -20,9 +20,9 @@ export default function HourlyWeather({ forecastday }: Props) {
     }
 
     return (
-        <div className="pt-4 pb-4 lg:pb-0">
+        <div className="col-span-full">
             <div className='flex justify-between'>
-                <h3 className='text-lg font-semibold'>Hourly Weather</h3>
+                <h3 className='text-lg font-semibold'>Weather for Today</h3>
             </div>
 
             <div className='flex flex-row gap-2 mt-2 overflow-x-auto pb-2'>
