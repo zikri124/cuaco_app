@@ -13,22 +13,22 @@ export default function ForecastCard({ forecastday }: Props) {
             <div className='flex flex-col gap-4 mt-4'>
                 <div className='px-2 py-2 rounded-2xl bg-white flex gap-4 items-center'>
                     <div>
+                        <Image src={getWeatherImage(forecastday![1].day.condition.code!)} height={60} width={60} alt='sun-logo' />
+                    </div>
+                    <div className='text-sm'>
+                        <p>{forecastday![1].date}</p>
+                        <p className='font-semibold text-lg'>{forecastday![1].day.avgtemp_c}&deg;C</p>
+                        <p>Rain {forecastday![1].day.daily_chance_of_rain}%</p>
+                    </div>
+                </div>
+                <div className='px-2 py-2 rounded-2xl bg-white flex gap-4 items-center'>
+                    <div>
                         <Image src={getWeatherImage(forecastday![2].day.condition.code!)} height={60} width={60} alt='sun-logo' />
                     </div>
                     <div className='text-sm'>
                         <p>{forecastday![2].date}</p>
                         <p className='font-semibold text-lg'>{forecastday![2].day.avgtemp_c}&deg;C</p>
                         <p>Rain {forecastday![2].day.daily_chance_of_rain}%</p>
-                    </div>
-                </div>
-                <div className='px-2 py-2 rounded-2xl bg-white flex gap-4 items-center'>
-                    <div>
-                        <Image src={getWeatherImage(forecastday![3].day.condition.code!)} height={60} width={60} alt='sun-logo' />
-                    </div>
-                    <div className='text-sm'>
-                        <p>{forecastday![3].date}</p>
-                        <p className='font-semibold text-lg'>{forecastday![3].day.avgtemp_c}&deg;C</p>
-                        <p>Rain {forecastday![3].day.daily_chance_of_rain}%</p>
                     </div>
                 </div>
                 <button className='card bg-white row-span-1 font-semibold text-center w-full text-gray-400' disabled>More</button>
